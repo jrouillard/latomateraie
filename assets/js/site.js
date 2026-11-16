@@ -99,10 +99,32 @@ document.querySelectorAll('[data-diaporama]').forEach(racine => {
     ? { fermer: 'Close', prec: 'Previous photo', suiv: 'Next photo', ouvrir: 'View full screen' }
     : { fermer: 'Fermer', prec: 'Photo précédente', suiv: 'Photo suivante', ouvrir: 'Voir en plein écran' };
 
-  // Deux galeries : le diaporama, puis les photos des pièces
+  // Les plans (SVG intégrés) sont convertis en images pour la visionneuse
+  const plans = [...document.querySelectorAll('.plan-svg')].map(svg => {
+    const copie = svg.cloneNode(true);
+    const [, , w, h] = svg.getAttribute('viewBox').split(/\s+/).map(Number);
+    copie.setAttribute('width', Math.round(w * 2));
+    copie.setAttribute('height', Math.round(h * 2));
+    const style = document.createElementNS('http://www.w3.org/2000/svg', 'style');
+    style.textContent = `
+      .plan-etiquette { font-family: Jost, Arial, sans-serif; font-size: 11px; font-weight: 600; fill: #3a3027;
+        paint-order: stroke; stroke: rgba(255,255,255,.85); stroke-width: 3px; stroke-linejoin: round; }
+      .plan-surface { font-weight: 400; font-size: 10px; }
+      .plan-etiquette.petit { font-size: 9.5px; } .plan-etiquette.vert { fill: #3f7a35; font-size: 12px; }
+      .plan-etiquette.gris { fill: #7b746a; } .plan-etiquette.entree { fill: #7a5636; }`;
+    copie.insertBefore(style, copie.firstChild);
+    const blob = new Blob([new XMLSerializer().serializeToString(copie)], { type: 'image/svg+xml' });
+    svg.src = URL.createObjectURL(blob);
+    const legende = svg.closest('figure')?.querySelector('figcaption');
+    svg.alt = legende ? legende.textContent.trim() : '';
+    return svg;
+  });
+
+  // Trois galeries : le diaporama, les photos des pièces, puis les plans
   const groupes = [
     [...document.querySelectorAll('.diaporama .slide img')],
     [...document.querySelectorAll('.piece img')],
+    plans,
   ].filter(g => g.length);
   if (!groupes.length) return;
 

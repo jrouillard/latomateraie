@@ -196,6 +196,25 @@ section { padding-block: 80px; }
 }
 .piece p { margin: 14px 0 0; font-size: 16px; }
 
+/* ---------- Plan en perspective ---------- */
+.plans { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: end; }
+.plan-niveau { margin: 0; }
+.plan-svg { display: block; width: 100%; height: auto; overflow: visible; }
+.plan-niveau figcaption {
+  margin-top: 12px; text-align: center;
+  font-family: var(--serif); font-size: 24px;
+}
+.plan-etiquette {
+  font-family: var(--sans); font-size: 11px; font-weight: 600; fill: #3a3027;
+  paint-order: stroke; stroke: rgba(255,255,255,.85); stroke-width: 3px; stroke-linejoin: round;
+}
+.plan-etiquette .plan-surface { font-weight: 400; font-size: 10px; }
+.plan-etiquette.petit { font-size: 9.5px; }
+.plan-etiquette.vert { fill: #3f7a35; font-size: 12px; }
+.plan-etiquette.gris { fill: #7b746a; }
+.plan-etiquette.entree { fill: #7a5636; }
+.plan-note { text-align: center; color: var(--texte-doux); font-size: 14px; margin: 28px 0 0; }
+
 /* ---------- Activités ---------- */
 .activites .grand-titre { margin-bottom: 48px; }
 .cartes-activites { margin-top: 72px; }
@@ -346,9 +365,14 @@ body.sans-defilement { overflow: hidden; }
   .heros { grid-template-columns: 1fr; min-height: 0; gap: 32px; }
   .heros-media { aspect-ratio: 4 / 5; max-height: none; }
   .presentation { grid-template-columns: 1fr; gap: 40px; }
+  .plans { grid-template-columns: 1fr; gap: 56px; }
   .grille { grid-template-columns: repeat(2, 1fr); gap: 40px 20px; }
 }
 @media (max-width: 600px) {
+  .plan-etiquette { font-size: 14px; }
+  .plan-etiquette .plan-surface { font-size: 12.5px; }
+  .plan-etiquette.petit { font-size: 12px; }
+  .plan-etiquette.vert { font-size: 15px; }
   body { font-size: 16px; }
   section { padding-block: 56px; }
   .nav { gap: 18px; }
