@@ -235,7 +235,6 @@ section { padding-block: 80px; }
   line-height: .9;
   position: relative; width: fit-content;
 }
-.tarifs h2 .a-tomate, .grand-titre .a-tomate { margin-right: .07em; }
 /* La ligne des dates tient sur une seule ligne : sa taille suit la largeur
    disponible (le texte mesure ~30,5 fois sa taille de police). */
 .sous-titre {
