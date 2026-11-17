@@ -39,6 +39,8 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+/* les décorations qui débordent (feuilles) ne doivent jamais créer de défilement horizontal */
+html, body { overflow-x: clip; }
 body {
   margin: 0;
   font-family: var(--sans);
@@ -270,6 +272,26 @@ section { padding-block: 80px; }
 .visually-hidden {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* ---------- Accès / carte ---------- */
+.acces-grille { display: grid; grid-template-columns: 1fr 2fr; gap: 40px; align-items: center; }
+.acces-infos address { font-style: normal; font-size: 18px; line-height: 1.7; }
+.acces-infos strong { font-family: var(--serif); font-weight: 400; font-size: 26px; color: var(--rouge); }
+.acces-boutons { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin: 24px 0 0; }
+.acces-boutons .bouton { margin-top: 0; }
+.lien-itineraire { color: var(--texte); font-weight: 600; text-underline-offset: 3px; }
+.lien-itineraire:hover { color: var(--rouge); }
+.acces-carte {
+  position: relative; aspect-ratio: 16 / 10; overflow: hidden;
+  background: #eef1ea; box-shadow: 0 0 0 1px var(--ligne);
+}
+.acces-carte iframe { position: absolute; inset: 0; display: block; width: 100%; height: 100%; border: 0; }
+@media (max-width: 900px) {
+  .acces-grille { grid-template-columns: 1fr; gap: 28px; }
+  .coin-haut-droit::after { right: -14px; }
+  .coin-haut-gauche::after { left: -14px; }
+  .acces-carte { aspect-ratio: 4 / 3; }
 }
 
 /* ---------- Tarifs ---------- */
